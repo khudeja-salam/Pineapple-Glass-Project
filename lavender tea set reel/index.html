@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tea Set · Pinterest Reel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --lav:     #b09bc8;
+  --lav-lt:  #d4c5e8;
+  --lav-dk:  #7a6a9a;
+  --cream:   #f5f0e8;
+  --warm:    #faf8f4;
+  --dark:    #1e1624;
+  --mid:     #2d2238;
+  --bamboo:  #c9a96e;
+  --sage:    #8aab8e;
+  --blush:   #e8b4b8;
+  --slate:   #6e7fa3;
+}
+
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  background: #0f0b14;
+  font-family: 'DM Sans', sans-serif;
+}
+body { display:flex; align-items:center; justify-content:center; }
+
+/* ─── RESPONSIVE SHELL ─── */
+.shell {
+  position:relative;
+  width:100vw; height:100vh;
+  border-radius:0;
+  overflow:hidden;
+}
+@media (min-width:500px) {
+  .shell {
+    height:100vh;
+    width:calc(100vh * 9 / 16);
+    border-radius:clamp(16px,2vh,28px);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.06),
+      0 30px 80px rgba(0,0,0,0.8),
+      0 0 120px rgba(176,155,200,0.08);
+  }
+}
+@media (min-width:500px) and (max-aspect-ratio:9/16) {
+  .shell { width:100vw; height:calc(100vw * 16/9); }
+}
+
+/* ─── SCENES ─── */
+.scene {
+  position:absolute; inset:0;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+.scene.active { opacity:1; pointer-events:auto; }
+
+/* ═══════════════════════════════════════
+   SCENE 1 — HOOK OPENER
+   Big price reveal, instant attention
+═══════════════════════════════════════ */
+#s1 {
+  background: var(--dark);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  overflow:hidden;
+}
+
+/* Animated grain texture overlay */
+#s1::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.4; pointer-events:none; z-index:1;
+}
+
+/* Full-bleed dimmed photo as bg */
+#s1 .bg-photo {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  filter:brightness(0.22) saturate(0.8);
+  animation:slowZoom 8s ease-in-out both;
+}
+@keyframes slowZoom {
+  from { transform:scale(1.08); }
+  to   { transform:scale(1); }
+}
+
+/* Vignette */
+#s1 .vignette {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(20,12,28,0.85) 100%);
+  z-index:2;
+}
+
+#s1 .content {
+  position:relative; z-index:3;
+  display:flex; flex-direction:column;
+  align-items:center; text-align:center;
+  padding:0 8%;
+}
+
+#s1 .hook-tag {
+  font-size:clamp(8px,2.4vw,10px);
+  font-weight:400;
+  letter-spacing:0.5em;
+  text-transform:uppercase;
+  color:var(--bamboo);
+  animation:fadeUp 0.6s ease 0.3s both;
+  margin-bottom:5%;
+}
+
+#s1 .hook-word {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(48px,15vw,80px);
+  font-weight:700;
+  font-style:italic;
+  line-height:0.9;
+  color:var(--cream);
+  animation:revealText 0.8s cubic-bezier(0.34,1.2,0.64,1) 0.5s both;
+  margin-bottom:3%;
+}
+@media(min-width:500px){ #s1 .hook-word { font-size:clamp(44px,11vh,80px); } }
+
+#s1 .hook-sub {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(16px,5vw,26px);
+  font-weight:400;
+  font-style:italic;
+  color:var(--lav-lt);
+  animation:fadeUp 0.7s ease 0.9s both;
+  margin-bottom:8%;
+}
+
+/* Price badge */
+#s1 .price-badge {
+  display:flex; flex-direction:column; align-items:center;
+  background:var(--lav);
+  border-radius:clamp(16px,4vw,22px);
+  padding:3.5% 9%;
+  animation:popIn 0.7s cubic-bezier(0.34,1.5,0.64,1) 1.2s both;
+  position:relative;
+  overflow:hidden;
+}
+#s1 .price-badge::before {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);
+}
+#s1 .price-label {
+  font-size:clamp(8px,2.2vw,9px);
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.75);
+  font-weight:300;
+}
+#s1 .price-num {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(28px,9vw,46px);
+  font-weight:700;
+  color:#fff;
+  line-height:1.1;
+}
+@media(min-width:500px){ #s1 .price-num { font-size:clamp(26px,6vh,46px); } }
+
+#s1 .scroll-hint {
+  position:absolute; bottom:6%; left:50%; transform:translateX(-50%);
+  z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  animation:fadeUp 0.6s ease 2s both;
+}
+#s1 .scroll-hint span {
+  font-size:clamp(7px,2vw,9px);
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+}
+#s1 .scroll-line {
+  width:1px; height:clamp(24px,6vw,36px);
+  background:linear-gradient(to bottom, rgba(176,155,200,0.6), transparent);
+  animation:scrollPulse 1.5s ease-in-out infinite 2.2s;
+}
+@keyframes scrollPulse {
+  0%,100%{opacity:0.4; transform:scaleY(1);}
+  50%{opacity:1; transform:scaleY(1.2);}
+}
+
+/* ═══════════════════════════════════════
+   SCENE 2 — PRODUCT HERO
+   The full photo, magazine style
+═══════════════════════════════════════ */
+#s2 { background:#faf8f4; overflow:hidden; }
+
+#s2 .photo-hero {
+  position:absolute; inset:0;
+  width:100%; height:68%;
+  object-fit:cover; object-position:center top;
+  animation:zoomIn 1.2s ease both;
+}
+@keyframes zoomIn {
+  from{transform:scale(1.1);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* Torn paper effect bottom */
+#s2 .tear {
+  position:absolute;
+  top:62%; left:0; right:0;
+  height:12%;
+  background:var(--warm);
+  clip-path:polygon(0 40%,2% 0,4% 35%,6% 5%,8% 40%,10% 0,12% 38%,14% 8%,16% 42%,18% 2%,20% 36%,22% 10%,24% 40%,26% 0,28% 38%,30% 12%,32% 42%,34% 4%,36% 36%,38% 0,40% 40%,42% 8%,44% 38%,46% 2%,48% 42%,50% 0,52% 36%,54% 10%,56% 40%,58% 4%,60% 38%,62% 0,64% 42%,66% 8%,68% 36%,70% 2%,72% 40%,74% 12%,76% 42%,78% 0,80% 38%,82% 6%,84% 40%,86% 0,88% 36%,90% 10%,92% 42%,94% 4%,96% 38%,98% 0,100% 40%,100% 100%,0 100%);
+}
+
+#s2 .info-block {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:38%;
+  background:var(--warm);
+  padding:2% 9% 6%;
+  display:flex; flex-direction:column; justify-content:center;
+  gap:3%;
+}
+
+#s2 .brand-line {
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.5em; text-transform:uppercase;
+  color:var(--bamboo); font-weight:500;
+  animation:fadeUp 0.6s ease 0.4s both;
+}
+#s2 .product-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(22px,7vw,36px);
+  font-weight:700; line-height:1.05;
+  color:var(--dark);
+  animation:fadeUp 0.7s ease 0.55s both;
+}
+@media(min-width:500px){ #s2 .product-title{font-size:clamp(20px,5vh,36px);} }
+
+#s2 .product-subtitle {
+  font-size:clamp(10px,3vw,13px);
+  font-weight:300; color:var(--lav-dk);
+  letter-spacing:0.05em;
+  animation:fadeUp 0.7s ease 0.7s both;
+}
+
+#s2 .stats-row {
+  display:flex; gap:5%; margin-top:1%;
+  animation:fadeUp 0.7s ease 0.85s both;
+}
+#s2 .stat {
+  display:flex; flex-direction:column;
+  align-items:flex-start;
+}
+#s2 .stat-num {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(18px,5.5vw,28px);
+  font-weight:700; color:var(--lav-dk);
+  line-height:1;
+}
+#s2 .stat-lbl {
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.25em; text-transform:uppercase;
+  color:rgba(42,32,48,0.4); font-weight:400;
+  margin-top:2px;
+}
+#s2 .stat-div {
+  width:1px; background:rgba(176,155,200,0.3);
+  margin:0 1%;
+}
+
+/* ═══════════════════════════════════════
+   SCENE 3 — WHAT'S INCLUDED
+   Checklist style, satisfying reveals
+═══════════════════════════════════════ */
+#s3 {
+  background:var(--mid);
+  overflow:hidden;
+  display:flex; flex-direction:column;
+}
+
+#s3 .s3-img {
+  width:100%; height:38%;
+  object-fit:cover; object-position:center;
+  filter:brightness(0.6) saturate(1.3);
+  flex-shrink:0;
+  position:relative;
+}
+
+#s3 .img-label {
+  position:absolute;
+  top:0; left:0; right:0; height:38%;
+  display:flex; align-items:flex-end;
+  padding:4% 9%;
+  background:linear-gradient(transparent 40%, rgba(45,34,56,0.9));
+  z-index:1;
+}
+#s3 .img-label h2 {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(22px,7vw,34px);
+  font-weight:700; font-style:italic;
+  color:var(--cream);
+  line-height:1.1;
+  animation:fadeUp 0.7s ease 0.3s both;
+}
+@media(min-width:500px){ #s3 .img-label h2{font-size:clamp(20px,5vh,34px);} }
+
+#s3 .items-list {
+  flex:1;
+  padding:5% 9%;
+  display:flex; flex-direction:column;
+  justify-content:center; gap:4%;
+}
+
+#s3 .item-row {
+  display:flex; align-items:center; gap:4%;
+  animation:slideRight 0.5s ease both;
+}
+#s3 .item-row:nth-child(1){animation-delay:0.2s;}
+#s3 .item-row:nth-child(2){animation-delay:0.35s;}
+#s3 .item-row:nth-child(3){animation-delay:0.5s;}
+#s3 .item-row:nth-child(4){animation-delay:0.65s;}
+@keyframes slideRight{from{transform:translateX(-8%);opacity:0;}to{transform:translateX(0);opacity:1;}}
+
+#s3 .item-icon {
+  width:clamp(36px,10vw,48px);
+  aspect-ratio:1;
+  border-radius:12px;
+  background:rgba(176,155,200,0.12);
+  border:1px solid rgba(176,155,200,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(16px,5vw,22px);
+  flex-shrink:0;
+}
+#s3 .item-info { flex:1; }
+#s3 .item-name {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(14px,4.5vw,20px);
+  font-weight:400; color:var(--cream);
+  line-height:1;
+}
+@media(min-width:500px){ #s3 .item-name{font-size:clamp(13px,3vh,20px);} }
+#s3 .item-qty {
+  font-size:clamp(9px,2.8vw,11px);
+  color:rgba(212,197,232,0.55);
+  letter-spacing:0.15em;
+  margin-top:2px;
+}
+#s3 .item-check {
+  width:clamp(20px,5.5vw,26px); aspect-ratio:1;
+  border-radius:50%;
+  background:var(--lav);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  animation:checkPop 0.4s cubic-bezier(0.34,1.5,0.64,1) both;
+}
+#s3 .item-row:nth-child(1) .item-check{animation-delay:0.45s;}
+#s3 .item-row:nth-child(2) .item-check{animation-delay:0.6s;}
+#s3 .item-row:nth-child(3) .item-check{animation-delay:0.75s;}
+#s3 .item-row:nth-child(4) .item-check{animation-delay:0.9s;}
+@keyframes checkPop{from{transform:scale(0);}to{transform:scale(1);}}
+#s3 .item-check svg{width:45%;height:45%;stroke:#fff;stroke-width:2.5;fill:none;}
+
+#s3 .total-line {
+  margin-top:2%;
+  padding-top:4%;
+  border-top:1px solid rgba(176,155,200,0.15);
+  display:flex; align-items:center; justify-content:space-between;
+  animation:fadeUp 0.6s ease 1.1s both;
+}
+#s3 .total-left {
+  font-size:clamp(8px,2.5vw,10px);
+  letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(212,197,232,0.5);
+}
+#s3 .total-price {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(20px,6vw,30px);
+  font-weight:700; color:var(--lav-lt);
+}
+@media(min-width:500px){ #s3 .total-price{font-size:clamp(18px,4vh,30px);} }
+
+/* ═══════════════════════════════════════
+   SCENE 4 — COLORS SHOWCASE
+   Pinterest's most viral format
+═══════════════════════════════════════ */
+#s4 {
+  background:var(--warm);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+
+#s4 .s4-header {
+  padding:7% 9% 3%;
+  flex-shrink:0;
+  animation:fadeUp 0.6s ease 0.2s both;
+}
+#s4 .s4-eyebrow {
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.45em; text-transform:uppercase;
+  color:var(--bamboo); font-weight:500;
+  margin-bottom:2%;
+}
+#s4 .s4-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(24px,7.5vw,38px);
+  font-weight:700; line-height:1.05;
+  color:var(--dark);
+}
+@media(min-width:500px){ #s4 .s4-title{font-size:clamp(22px,5.5vh,38px);} }
+#s4 .s4-title em { font-style:italic; color:var(--lav-dk); }
+
+#s4 .colors-grid {
+  flex:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+  padding:0 3px 3px;
+  min-height:0;
+}
+
+#s4 .color-card {
+  position:relative;
+  overflow:hidden;
+  border-radius:0;
+  animation:tileIn 0.5s ease both;
+  min-height:0;
+}
+#s4 .color-card:nth-child(1){border-radius:12px 0 0 0; animation-delay:0.25s;}
+#s4 .color-card:nth-child(2){border-radius:0 12px 0 0; animation-delay:0.35s;}
+#s4 .color-card:nth-child(3){border-radius:0 0 0 12px; animation-delay:0.45s;}
+#s4 .color-card:nth-child(4){border-radius:0 0 12px 0; animation-delay:0.55s;}
+@keyframes tileIn{from{opacity:0;transform:scale(0.88);}to{opacity:1;transform:scale(1);}}
+
+/* Each card has a solid colored background + photo overlay */
+#s4 .color-card .card-bg {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform 6s ease;
+}
+#s4 .color-card .color-wash {
+  position:absolute; inset:0;
+  mix-blend-mode:color;
+  opacity:0.45;
+}
+#s4 .color-card .card-gradient {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+}
+#s4 .color-card .card-name {
+  position:absolute;
+  bottom:8%; left:0; right:0;
+  text-align:center;
+  z-index:2;
+}
+#s4 .color-card .color-swatch {
+  width:clamp(10px,3vw,14px);
+  aspect-ratio:1; border-radius:50%;
+  margin:0 auto 4%;
+  border:2px solid rgba(255,255,255,0.6);
+}
+#s4 .color-card .color-label {
+  font-size:clamp(9px,2.8vw,11px);
+  font-weight:400; letter-spacing:0.15em;
+  text-transform:uppercase; color:#fff;
+  text-shadow:0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* Color tints per card */
+#s4 .color-card:nth-child(1) .color-wash { background: #b09bc8; } /* lavender */
+#s4 .color-card:nth-child(2) .color-wash { background: #c9a96e; } /* bamboo */
+#s4 .color-card:nth-child(3) .color-wash { background: #8aab8e; } /* sage */
+#s4 .color-card:nth-child(4) .color-wash { background: #e8b4b8; } /* blush */
+
+/* ═══════════════════════════════════════
+   SCENE 5 — PRICE + CTA
+   The viral "save this post" closer
+═══════════════════════════════════════ */
+#s5 {
+  overflow:hidden;
+  display:flex; flex-direction:column;
+}
+#s5 .s5-photo {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top;
+  filter:brightness(0.3) saturate(1.2);
+  animation:slowZoom 8s ease both;
+}
+#s5 .s5-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(30,22,36,0.3) 0%,
+    rgba(30,22,36,0.1) 30%,
+    rgba(30,22,36,0.85) 65%,
+    rgba(30,22,36,0.98) 100%
+  );
+}
+#s5 .s5-content {
+  position:absolute;
+  inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:flex-end;
+  padding:0 9% 8%;
+  text-align:center;
+}
+
+#s5 .s5-logo {
+  width:clamp(40px,11vw,52px); aspect-ratio:1;
+  border-radius:50%;
+  background:var(--lav);
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(16px,5vw,22px);
+  margin-bottom:5%;
+  animation:popIn 0.6s ease 0.3s both;
+  box-shadow:0 0 0 4px rgba(176,155,200,0.2), 0 0 30px rgba(176,155,200,0.3);
+}
+
+#s5 .s5-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(30px,9.5vw,52px);
+  font-weight:700; font-style:italic;
+  color:var(--cream); line-height:1;
+  animation:fadeUp 0.7s ease 0.5s both;
+  margin-bottom:3%;
+}
+@media(min-width:500px){ #s5 .s5-title{font-size:clamp(28px,7.5vh,52px);} }
+
+#s5 .s5-desc {
+  font-size:clamp(10px,3vw,13px);
+  font-weight:300;
+  color:rgba(212,197,232,0.7);
+  line-height:1.6; letter-spacing:0.03em;
+  animation:fadeUp 0.7s ease 0.65s both;
+  margin-bottom:6%;
+}
+@media(min-width:500px){ #s5 .s5-desc{font-size:clamp(10px,1.9vh,13px);} }
+
+/* Big price strip */
+#s5 .price-strip {
+  width:100%;
+  background:var(--lav);
+  border-radius:clamp(12px,3vw,18px);
+  padding:4% 6%;
+  display:flex; align-items:center; justify-content:space-between;
+  animation:slideUp 0.7s cubic-bezier(0.34,1.3,0.64,1) 0.85s both;
+  position:relative; overflow:hidden;
+  margin-bottom:4%;
+}
+#s5 .price-strip::before {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),transparent 60%);
+}
+#s5 .ps-left { text-align:left; }
+#s5 .ps-tag {
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(255,255,255,0.7); font-weight:300;
+}
+#s5 .ps-price {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(26px,8vw,42px);
+  font-weight:700; color:#fff; line-height:1;
+}
+@media(min-width:500px){ #s5 .ps-price{font-size:clamp(24px,6vh,42px);} }
+#s5 .ps-right {
+  display:flex; flex-direction:column; align-items:flex-end; gap:4px;
+}
+#s5 .ps-badge {
+  background:rgba(255,255,255,0.2);
+  border-radius:50px;
+  padding:2px 8px;
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.15em; text-transform:uppercase;
+  color:rgba(255,255,255,0.9);
+}
+
+/* Color dots row */
+#s5 .colors-row {
+  display:flex; gap:3%; align-items:center; justify-content:center;
+  animation:fadeUp 0.6s ease 1.05s both;
+  margin-bottom:5%;
+}
+#s5 .c-dot {
+  width:clamp(14px,4.5vw,20px); aspect-ratio:1;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.3);
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+#s5 .c-dot.lav   { background:var(--lav); }
+#s5 .c-dot.bam   { background:var(--bamboo); }
+#s5 .c-dot.sage  { background:var(--sage); }
+#s5 .c-dot.blush { background:var(--blush); }
+#s5 .colors-label {
+  font-size:clamp(8px,2.5vw,10px);
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  margin-left:2%;
+}
+
+#s5 .cta-row {
+  display:flex; gap:3%; width:100%;
+  animation:fadeUp 0.6s ease 1.2s both;
+}
+#s5 .btn {
+  flex:1; padding:4% 0;
+  border-radius:50px;
+  font-family:'DM Sans', sans-serif;
+  font-size:clamp(9px,2.8vw,11px);
+  font-weight:500; letter-spacing:0.2em;
+  text-transform:uppercase; cursor:pointer;
+  border:none; transition:transform 0.2s ease, opacity 0.2s ease;
+}
+#s5 .btn:active { transform:scale(0.96); }
+#s5 .btn.primary {
+  background:var(--lav);
+  color:#fff;
+  box-shadow:0 4px 20px rgba(176,155,200,0.4);
+}
+#s5 .btn.secondary {
+  background:transparent;
+  border:1px solid rgba(176,155,200,0.4);
+  color:var(--lav-lt);
+}
+
+/* ─── SAVE BANNER (Pinterest style) ─── */
+#s5 .save-banner {
+  position:absolute;
+  top:6%; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:2.5%;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:50px;
+  padding:2% 5%;
+  animation:fadeUp 0.6s ease 1.5s both;
+  white-space:nowrap;
+}
+#s5 .save-banner span {
+  font-size:clamp(8px,2.5vw,10px);
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+}
+#s5 .save-banner .heart { font-size:clamp(10px,3vw,13px); }
+
+/* ─── SHARED KEYFRAMES ─── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(10%);} to{opacity:1;transform:translateY(0);} }
+@keyframes revealText{ from{opacity:0;transform:scale(0.85) translateY(8%);} to{opacity:1;transform:scale(1) translateY(0);} }
+@keyframes popIn    { from{opacity:0;transform:scale(0.5);} to{opacity:1;transform:scale(1);} }
+@keyframes slideUp  { from{opacity:0;transform:translateY(30%);} to{opacity:1;transform:translateY(0);} }
+
+/* ─── STORY PROGRESS BAR ─── */
+.story-bars {
+  position:absolute;
+  top:3%; left:3%; right:3%;
+  display:flex; gap:2%; z-index:200;
+  pointer-events:none;
+}
+.story-bar {
+  flex:1; height:2.5px; border-radius:2px;
+  background:rgba(255,255,255,0.2);
+  overflow:hidden;
+}
+.story-bar-fill {
+  height:100%; width:0%;
+  background:rgba(255,255,255,0.85);
+  border-radius:2px;
+}
+.story-bar.done .story-bar-fill { width:100%; }
+
+/* ─── NAV DOTS ─── */
+.nav-dots {
+  position:absolute;
+  right:3%; top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:7px;
+  z-index:200;
+}
+.nav-dot {
+  width:5px; height:5px; border-radius:3px;
+  background:rgba(255,255,255,0.25);
+  cursor:pointer; transition:all 0.3s ease;
+}
+.nav-dot.active { background:#fff; height:18px; }
+
+/* ─── REPLAY ─── */
+.replay-btn {
+  position:absolute;
+  top:8.5%; left:3.5%;
+  width:clamp(30px,8.5vw,38px); aspect-ratio:1;
+  border-radius:50%;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.15);
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  z-index:200; opacity:0; pointer-events:none;
+  transition:opacity 0.3s;
+}
+.replay-btn.visible { opacity:1; pointer-events:auto; }
+.replay-btn svg { width:42%; height:42%; fill:#fff; }
+
+/* ─── SCENE 4: SOLO COLOUR SHOWCASE ─── */
+#s4 .solo-card {
+  flex:1;
+  margin:0 3px 3px;
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  animation:tileIn 0.7s cubic-bezier(0.34,1.2,0.64,1) 0.3s both;
+  min-height:0;
+}
+#s4 .solo-img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  animation:kenBurns 7s ease-in-out both;
+}
+@keyframes kenBurns {
+  from{transform:scale(1.1) translate(1%,1%);}
+  to{transform:scale(1) translate(0,0);}
+}
+#s4 .solo-gradient {
+  position:absolute; inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(30,22,36,0.1) 0%,
+    transparent 30%,
+    rgba(30,22,36,0.7) 70%,
+    rgba(30,22,36,0.95) 100%
+  );
+}
+#s4 .solo-badge-top {
+  position:absolute;
+  top:6%; left:6%;
+  display:flex; align-items:center; gap:8px;
+  background:rgba(176,155,200,0.2);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(176,155,200,0.35);
+  border-radius:50px;
+  padding:2% 5%;
+  animation:fadeUp 0.6s ease 0.6s both;
+}
+#s4 .solo-badge-dot {
+  width:clamp(8px,2.5vw,12px); aspect-ratio:1;
+  border-radius:50%; background:var(--lav);
+  box-shadow:0 0 8px rgba(176,155,200,0.6);
+  flex-shrink:0;
+}
+#s4 .solo-badge-top span {
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--lav-lt); font-weight:400;
+}
+#s4 .solo-bottom {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  padding:5% 6% 6%;
+  display:flex; flex-direction:column; gap:4%;
+  z-index:2;
+}
+#s4 .lav-chip {
+  display:flex; align-items:center; gap:4%;
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(176,155,200,0.25);
+  border-radius:clamp(12px,3vw,16px);
+  padding:3.5% 4%;
+  animation:fadeUp 0.6s ease 0.8s both;
+}
+#s4 .lav-chip-swatch {
+  width:clamp(28px,8vw,38px); aspect-ratio:1;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d4c5e8,#b09bc8);
+  border:2px solid rgba(255,255,255,0.3);
+  flex-shrink:0;
+  box-shadow:0 0 16px rgba(176,155,200,0.4);
+}
+#s4 .lav-chip-info { flex:1; }
+#s4 .lav-chip-name {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(13px,4vw,18px); font-weight:700;
+  color:#fff; line-height:1;
+}
+#s4 .lav-chip-sub {
+  font-size:clamp(8px,2.4vw,10px);
+  color:rgba(212,197,232,0.6);
+  letter-spacing:0.06em; margin-top:3px;
+}
+#s4 .lav-chip-tag {
+  background:var(--lav);
+  border-radius:50px;
+  padding:2px 8px;
+  font-size:clamp(7px,2.2vw,9px);
+  letter-spacing:0.15em; text-transform:uppercase;
+  color:#fff; font-weight:500;
+  flex-shrink:0;
+}
+#s4 .solo-quote {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(12px,3.8vw,17px);
+  font-style:italic; font-weight:400;
+  color:rgba(212,197,232,0.65);
+  text-align:center; line-height:1.4;
+  animation:fadeUp 0.6s ease 1s both;
+}
+@media(min-width:500px){ #s4 .solo-quote{font-size:clamp(11px,2.5vh,17px);} }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ SCENE 1: HOOK ══ -->
+  <div class="scene active" id="s1">
+    <img class="bg-photo" src="./lavender tea set.jpeg" alt="">
+    <div class="vignette"></div>
+    <div class="content">
+      <div class="hook-tag">✦ Pinterest Style Pick ✦</div>
+      <div class="hook-word">Gorgeous.</div>
+      <div class="hook-sub">Tea Set with Wooden Stand</div>
+      <div class="price-badge">
+        <div class="price-label">Only For</div>
+        <div class="price-num">Rs. 16,500</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Swipe</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 2: PRODUCT HERO ══ -->
+  <div class="scene" id="s2">
+    <img class="photo-hero" src="./lavender tea set.jpeg" alt="Tea Set">
+    <div class="tear"></div>
+    <div class="info-block">
+      <div class="brand-line">✦ Artisan Collection 2026</div>
+      <div class="product-title">Ceramic Tea Set<br>with Wooden Stand</div>
+      <div class="product-subtitle">Handcrafted · Glazed Finish · Gift Ready</div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Cups</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-lbl">Saucers</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-lbl">Kettle+Lid</div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-lbl">Wooden Stand</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 3: WHAT'S INCLUDED ══ -->
+  <div class="scene" id="s3">
+    <img class="s3-img" src="./lavender tea set.jpeg" alt="">
+    <div class="img-label">
+      <h2>What's<br>Included?</h2>
+    </div>
+    <div class="items-list">
+      <div class="item-row">
+        <div class="item-icon">🫖</div>
+        <div class="item-info">
+          <div class="item-name">Ceramic Kettle</div>
+          <div class="item-qty">×1 · with matching lid</div>
+        </div>
+        <div class="item-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">☕</div>
+        <div class="item-info">
+          <div class="item-name">Tea Cups</div>
+          <div class="item-qty">×6 · ripple texture design</div>
+        </div>
+        <div class="item-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">🍽️</div>
+        <div class="item-info">
+          <div class="item-name">Saucers</div>
+          <div class="item-qty">×6 · perfectly matched</div>
+        </div>
+        <div class="item-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">🪵</div>
+        <div class="item-info">
+          <div class="item-name">Wooden Stand</div>
+          <div class="item-qty">×1 · natural bamboo rack</div>
+        </div>
+        <div class="item-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="total-line">
+        <div class="total-left">Complete Set Price</div>
+        <div class="total-price">Rs. 16,500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 4: 4 COLORS ══ -->
+  <div class="scene" id="s4">
+    <div class="s4-header">
+      <div class="s4-eyebrow">✦ Lavender Edition Only</div>
+      <div class="s4-title">One Signature<br><em>Colour</em></div>
+    </div>
+    <div class="solo-card">
+      <img class="solo-img" src="./lavender tea set.jpeg" alt="Lavender Tea Set">
+      <div class="solo-gradient"></div>
+      <div class="solo-badge-top">
+        <div class="solo-badge-dot"></div>
+        <span>Signature Colour</span>
+      </div>
+      <div class="solo-bottom">
+        <div class="lav-chip">
+          <div class="lav-chip-swatch"></div>
+          <div class="lav-chip-info">
+            <div class="lav-chip-name">Lavender Mist</div>
+            <div class="lav-chip-sub">Cream body · Purple handle &amp; lid</div>
+          </div>
+          <div class="lav-chip-tag">In Stock</div>
+        </div>
+        <div class="solo-quote">"The only colour you'll ever need."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENE 5: CTA ══ -->
+  <div class="scene" id="s5">
+    <img class="s5-photo" src="./lavender tea set.jpeg" alt="">
+    <div class="s5-overlay"></div>
+    <div class="save-banner">
+      <span class="heart">🤍</span>
+      <span>Save this post</span>
+    </div>
+    <div class="s5-content">
+      <div class="s5-logo">🫖</div>
+      <div class="s5-title">Order Yours<br>Today.</div>
+      <div class="s5-desc">
+        Pinterest-worthy tea set · Wooden stand included<br>
+        6 cups · 6 saucers · 1 kettle with lid<br>
+        Signature Lavender colour · Limited stock
+      </div>
+      <div class="price-strip">
+        <div class="ps-left">
+          <div class="ps-tag">Complete Set</div>
+          <div class="ps-price">Rs. 16,500</div>
+        </div>
+        <div class="ps-right">
+          <div class="ps-badge">Lavender</div>
+          <div class="ps-badge">14 Pieces</div>
+        </div>
+      </div>
+      <div class="colors-row">
+        <div class="c-dot lav" style="width:clamp(18px,5.5vw,26px);border-color:rgba(176,155,200,0.7);box-shadow:0 0 12px rgba(176,155,200,0.5);"></div>
+        <div class="colors-label">Lavender · Only Colour</div>
+      </div>
+      <div class="cta-row">
+        <button class="btn primary">DM to Order</button>
+        <button class="btn secondary">Save Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ UI CHROME ══ -->
+  <div class="story-bars" id="storyBars"></div>
+  <div class="nav-dots" id="navDots"></div>
+  <button class="replay-btn" id="replayBtn" onclick="restart()">
+    <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+  </button>
+
+</div><!-- /.shell -->
+
+<script>
+  const SCENES    = document.querySelectorAll('.scene');
+  const DURATIONS = [3800, 4500, 5500, 5000, 6000];
+  const N         = SCENES.length;
+
+  const storyBarsEl = document.getElementById('storyBars');
+  const navDotsEl   = document.getElementById('navDots');
+  const replayBtn   = document.getElementById('replayBtn');
+
+  let current = 0, autoTimer = null, rafId = null, progStart = null;
+  const bars = [], dots = [];
+
+  // Build story bars + nav dots
+  for (let i = 0; i < N; i++) {
+    // bar
+    const bar = document.createElement('div');
+    bar.className = 'story-bar';
+    const fill = document.createElement('div');
+    fill.className = 'story-bar-fill';
+    bar.appendChild(fill);
+    storyBarsEl.appendChild(bar);
+    bars.push({ bar, fill });
+
+    // dot
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    navDotsEl.appendChild(dot);
+    dots.push(dot);
+  }
+
+  function goTo(idx) {
+    // Deactivate current
+    SCENES[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    bars[current].bar.classList.remove('active-bar');
+
+    // Freeze previous bars
+    if (idx > current) {
+      for (let i = 0; i < idx; i++) {
+        bars[i].bar.classList.add('done');
+        bars[i].fill.style.width = '100%';
+        bars[i].fill.style.transition = 'none';
+      }
+    } else {
+      for (let i = idx; i < N; i++) {
+        bars[i].bar.classList.remove('done');
+        bars[i].fill.style.transition = 'none';
+        bars[i].fill.style.width = '0%';
+      }
+    }
+
+    current = idx;
+    SCENES[current].classList.add('active');
+    dots[current].classList.add('active');
+    replayBtn.classList.remove('visible');
+
+    cancelAnimationFrame(rafId);
+    clearTimeout(autoTimer);
+    bars[current].fill.style.transition = 'none';
+    bars[current].fill.style.width = '0%';
+
+    // Animate bar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        progStart = performance.now();
+        const dur = DURATIONS[current];
+        function tick(now) {
+          const pct = Math.min((now - progStart) / dur * 100, 100);
+          bars[current].fill.style.transition = 'none';
+          bars[current].fill.style.width = pct + '%';
+          if (pct < 100) { rafId = requestAnimationFrame(tick); }
+        }
+        rafId = requestAnimationFrame(tick);
+      });
+    });
+
+    if (idx < N - 1) {
+      autoTimer = setTimeout(() => goTo(idx + 1), DURATIONS[current]);
+    } else {
+      // last scene done → show replay after duration
+      autoTimer = setTimeout(() => replayBtn.classList.add('visible'), DURATIONS[current]);
+    }
+  }
+
+  function restart() {
+    for (let i = 0; i < N; i++) {
+      bars[i].bar.classList.remove('done');
+      bars[i].fill.style.transition = 'none';
+      bars[i].fill.style.width = '0%';
+    }
+    replayBtn.classList.remove('visible');
+    goTo(0);
+  }
+
+  // Touch swipe
+  let tx = null;
+  document.querySelector('.shell').addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+  document.querySelector('.shell').addEventListener('touchend', e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 45) {
+      if (dx < 0 && current < N - 1) goTo(current + 1);
+      if (dx > 0 && current > 0)     goTo(current - 1);
+    }
+    tx = null;
+  }, {passive:true});
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' && current < N - 1) goTo(current + 1);
+    if (e.key === 'ArrowLeft'  && current > 0)     goTo(current - 1);
+  });
+
+  // Start
+  goTo(0);
+</script>
+</body>
+</html>
